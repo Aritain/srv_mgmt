@@ -12,7 +12,7 @@ logging.basicConfig(
 )
 app_logger = logging.getLogger('app_logger')
 
-def get_token():
+def get_token() -> str:
     try:
         token = os.environ['TG_TOKEN']
     except KeyError:
@@ -21,10 +21,19 @@ def get_token():
     return token
 
 
-def get_bot_admin():
+def get_bot_admin() -> int:
     try:
         admin_id = int(os.environ['BOT_ADMIN'])
     except (KeyError, ValueError):
         app_logger.error('Missing BOT_ADMIN env varbiable')
         sys.exit(1)
     return admin_id
+
+
+def get_multimedia_dir() -> str:
+    try:
+        multimedia_dir = os.environ['MULTIMEDIA_DIR']
+    except (KeyError, ValueError):
+        app_logger.error('Missing MULTIMEDIA_DIR env varbiable')
+        sys.exit(1)
+    return multimedia_dir

@@ -20,6 +20,10 @@ from app.bot import (
 from app.docker import (
     ContainerHandler
 )
+from app.multimedia import (
+    directory_choise,
+    list_directories
+)
 
 
 def main():
@@ -43,21 +47,26 @@ def main():
         },
         fallbacks=[
             MessageHandler(
-                filters.Regex(CANCEL_CAPTION), container_handler.container_cancel
+                filters.Regex(CANCEL_CAPTION), bot.cancel_conversation
             )]
     ))
-    '''
+
     bot.application.add_handler(ConversationHandler(
-        entry_points = [CommandHandler("multimedia", multimedia, filters.User(bot_admin))],
+        entry_points = [CommandHandler("multimedia", list_directories)],
         states = {
-            multimedia_pick : [
+            directory_choise : [
                 MessageHandler(
-                    filters.TEXT & ~filters.Regex(CANCEL_CAPTION), multimedia_pick
+                    filters.TEXT & ~filters.Regex(CANCEL_CAPTION), directory_choise
                 )
             ]
-        }
+        },
+        fallbacks=[
+            MessageHandler(
+                filters.Regex(CANCEL_CAPTION), bot.cancel_conversation
+            )]
     ))
-    '''
+
+    bot.application.add_error_handler(bot.error_handler)
 
     bot.application.run_polling()
 
