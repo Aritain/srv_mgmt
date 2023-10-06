@@ -2,5 +2,5 @@
 srv_mgmt
 __pycache__
 *.spec
-src/dist
-src/build
+source/dist
+source/build

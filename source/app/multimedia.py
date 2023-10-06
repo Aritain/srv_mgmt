@@ -19,6 +19,10 @@ async def list_directories(update, context):
 async def directory_choise(update, context):
     dirs = os.listdir(get_multimedia_dir())
     chosen_dir = dirs[int(update.message.text) - 1]
-    shutil.rmtree(f'{get_multimedia_dir()}/{chosen_dir}')
+    delete_target = f'{get_multimedia_dir()}/{chosen_dir}'
+    if os.path.isdir(delete_target):
+        shutil.rmtree(delete_target)
+    else:
+        os.remove(delete_target)
     await update.message.reply_text('Done')
     return ConversationHandler.END

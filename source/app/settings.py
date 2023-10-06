@@ -12,6 +12,7 @@ logging.basicConfig(
 )
 app_logger = logging.getLogger('app_logger')
 
+
 def get_token() -> str:
     try:
         token = os.environ['TG_TOKEN']
