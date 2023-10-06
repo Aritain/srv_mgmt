@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import threading
 
 from app.settings import (
@@ -25,6 +26,7 @@ from app.multimedia import (
     list_directories
 )
 
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 def main():
     bot_admin = get_bot_admin()
